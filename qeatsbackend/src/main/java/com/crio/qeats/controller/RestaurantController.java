@@ -68,7 +68,9 @@ public class RestaurantController {
       log.info("getRestaurants returned {}", getRestaurantsResponse);
       //CHECKSTYLE:ON
 
-    return ResponseEntity.ok().body(getRestaurantsResponse);
+      if(getRestaurantsResponse != null) return ResponseEntity.ok().body(getRestaurantsResponse);
+      
+    return ResponseEntity.badRequest().body("Location is not correct.");
   }
 
   // TIP(MODULE_MENUAPI): Model Implementation for getting menu given a restaurantId.
