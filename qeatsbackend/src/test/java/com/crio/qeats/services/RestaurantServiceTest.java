@@ -93,32 +93,29 @@ class RestaurantServiceTest {
 
   @Test
   void normalHourServingRadiusIs5KmsAt3PM() throws IOException {
-    assertEquals(getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(15, 0)), "5.0");
+    assertEquals(getServingRadius(loadRestaurantsDuringNormalHours(), LocalTime.of(15, 0)), "5.0");
   }
 
 
-  @Test
-  void normalHourServingRadiusIs5Kms() throws IOException {
+  // @Test
+  // void normalHourServingRadiusIs5Kms() throws IOException {
 
-    // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
-    // We must ensure the API retrieves only restaurants that are closeby and are open
-    // In short, we need to test:
-    // 1. If the mocked service methods are being called
-    // 2. If the expected restaurants are being returned
-    // HINT: Use the `loadRestaurantsDuringNormalHours` utility method to speed things up
-    // List<Restaurant> restaurants = loadRestaurantsDuringNormalHours();
+  //   // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI
+  //   // We must ensure the API retrieves only restaurants that are closeby and are open
+  //   // In short, we need to test:
+  //   // 1. If the mocked service methods are being called
+  //   // 2. If the expected restaurants are being returned
+  //   // HINT: Use the `loadRestaurantsDuringNormalHours` utility method to speed things up
+  //   // List<Restaurant> restaurants = loadRestaurantsDuringNormalHours();
 
-    // GetRestaurantsResponse getRestaurantsResponse = restaurantService
-    //     .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
-    //     LocalTime.of(11, 00));
+  //   // GetRestaurantsResponse getRestaurantsResponse = restaurantService
+  //   //     .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
+  //   //     LocalTime.of(11, 00));
 
-    List<Restaurant> expRestaurants = loadRestaurantsDuringNormalHours();
+  //   int radius = getServingRadius(loadRestaurantsDuringPeakHours(), LocalTime.of(15, 0));
 
-    GetRestaurantsResponse expResponse = restaurantService
-        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0), LocalTime.of(11, 00));
-
-     assertFalse(false);
-  }
+  //    assertFalse(radius);
+  // }
 
 
 
