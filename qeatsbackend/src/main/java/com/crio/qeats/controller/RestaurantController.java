@@ -1,6 +1,6 @@
 /*
  *
- *  * Copyright (c) Crio.Do 2019. All rights reserved
+ * * Copyright (c) Crio.Do 2019. All rights reserved
  *
  */
 
@@ -51,27 +51,29 @@ public class RestaurantController {
     // log.error(getRestaurantsRequest.getLatitude());
 
     // GeoLocation class utilizes latitude and longitude to check if it valid location or not
-    GeoLocation geoLocation = new GeoLocation(getRestaurantsRequest.getLatitude(), getRestaurantsRequest.getLongitude());
+    GeoLocation geoLocation =
+        new GeoLocation(getRestaurantsRequest.getLatitude(), getRestaurantsRequest.getLongitude());
 
     // if location is invalid return bad request
-    if(!geoLocation.isValidGeoLocation()){
+    if (!geoLocation.isValidGeoLocation()) {
       return ResponseEntity.badRequest().body("Location is invalid.");
     }
 
     log.info("getRestaurants called with {}", getRestaurantsRequest);
     GetRestaurantsResponse getRestaurantsResponse;
 
-      //CHECKSTYLE:OFF
-      getRestaurantsResponse = restaurantService
-          .findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
-      // System.out.println("here");
-      log.info("getRestaurants returned {}", getRestaurantsResponse);
-      //CHECKSTYLE:ON
+    // CHECKSTYLE:OFF
+    getRestaurantsResponse =
+        restaurantService.findAllRestaurantsCloseBy(getRestaurantsRequest, LocalTime.now());
+    // System.out.println("here");
+    log.info("getRestaurants returned {}", getRestaurantsResponse);
+    // CHECKSTYLE:ON
 
-      // if found the restaurants return the restaurants to the user
-      if(getRestaurantsResponse != null) return ResponseEntity.ok().body(getRestaurantsResponse);
-      
-      // if some issue while de serializing it, it is a bad request
+    // if found the restaurants return the restaurants to the user
+    if (getRestaurantsResponse != null)
+      return ResponseEntity.ok().body(getRestaurantsResponse);
+
+    // if some issue while de serializing it, it is a bad request
     return ResponseEntity.badRequest().body("Location is not correct.");
   }
 
@@ -86,36 +88,27 @@ public class RestaurantController {
   //
   // HTTP Code: 200
   // {
-  //  "menu": {
-  //    "items": [
-  //      {
-  //        "attributes": [
-  //          "South Indian"
-  //        ],
-  //        "id": "1",
-  //        "imageUrl": "www.google.com",
-  //        "itemId": "10",
-  //        "name": "Idly",
-  //        "price": 45
-  //      }
-  //    ],
-  //    "restaurantId": "11"
-  //  }
+  // "menu": {
+  // "items": [
+  // {
+  // "attributes": [
+  // "South Indian"
+  // ],
+  // "id": "1",
+  // "imageUrl": "www.google.com",
+  // "itemId": "10",
+  // "name": "Idly",
+  // "price": 45
+  // }
+  // ],
+  // "restaurantId": "11"
+  // }
   // }
   // Error Response:
   // HTTP Code: 4xx, if client side error.
-  //          : 5xx, if server side error.
+  // : 5xx, if server side error.
   // Eg:
   // curl -X GET "http://localhost:8081/qeats/v1/menu?restaurantId=11"
-
-
-
-
-
-
-
-
-
 
 
 

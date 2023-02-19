@@ -1,7 +1,7 @@
 
 /*
  *
- *  * Copyright (c) Crio.Do 2019. All rights reserved
+ * * Copyright (c) Crio.Do 2019. All rights reserved
  *
  */
 
@@ -41,36 +41,39 @@ public class RestaurantServiceImpl implements RestaurantService {
   @Override
   public GetRestaurantsResponse findAllRestaurantsCloseBy(
       GetRestaurantsRequest getRestaurantsRequest, LocalTime currentTime) {
-        
-        double latitude = getRestaurantsRequest.getLatitude();
-        double longitude = getRestaurantsRequest.getLongitude();
-        
-        // final LocalTime peakHourTime1 = LocalTime.of(8, 00);
-        // final LocalTime peakHourTime2 = LocalTime.
-        // Calendar calendar = Calendar.getInstance();
-        // calendar.setTime(LocalTime.of(10, 00));
-        // int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-        List<Restaurant> restaurants;
+    double latitude = getRestaurantsRequest.getLatitude();
+    double longitude = getRestaurantsRequest.getLongitude();
 
-        // if((hour >= 8 && hour <= 10) || (hour >= 13 && hour <= 14) || (hour >= 19 && hour <= 21))
-        boolean check = ((currentTime.isAfter(LocalTime.of(7, 59, 59)) && currentTime.isBefore(LocalTime.of(10, 00, 01)))
-                       || (currentTime.isAfter(LocalTime.of(12, 59, 59)) && currentTime.isBefore(LocalTime.of(14, 00, 01)))
-                       || (currentTime.isAfter(LocalTime.of(18, 59, 59)) && currentTime.isBefore(LocalTime.of(21, 00, 01))));
+    // final LocalTime peakHourTime1 = LocalTime.of(8, 00);
+    // final LocalTime peakHourTime2 = LocalTime.
+    // Calendar calendar = Calendar.getInstance();
+    // calendar.setTime(LocalTime.of(10, 00));
+    // int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if(check){
-          restaurants = restaurantRepositoryService
-              .findAllRestaurantsCloseBy(latitude, longitude, currentTime, peakHoursServingRadiusInKms);
-        }else{
-          restaurants = restaurantRepositoryService
-              .findAllRestaurantsCloseBy(latitude, longitude, currentTime, normalHoursServingRadiusInKms);
-        }
+    List<Restaurant> restaurants;
 
-        if(restaurants == null){
-          return new GetRestaurantsResponse(new ArrayList<>());
-        }
+    // if((hour >= 8 && hour <= 10) || (hour >= 13 && hour <= 14) || (hour >= 19 && hour <= 21))
+    boolean check = ((currentTime.isAfter(LocalTime.of(7, 59, 59))
+        && currentTime.isBefore(LocalTime.of(10, 00, 01)))
+        || (currentTime.isAfter(LocalTime.of(12, 59, 59))
+            && currentTime.isBefore(LocalTime.of(14, 00, 01)))
+        || (currentTime.isAfter(LocalTime.of(18, 59, 59))
+            && currentTime.isBefore(LocalTime.of(21, 00, 01))));
 
-     return new GetRestaurantsResponse(restaurants);
+    if (check) {
+      restaurants = restaurantRepositoryService.findAllRestaurantsCloseBy(latitude, longitude,
+          currentTime, peakHoursServingRadiusInKms);
+    } else {
+      restaurants = restaurantRepositoryService.findAllRestaurantsCloseBy(latitude, longitude,
+          currentTime, normalHoursServingRadiusInKms);
+    }
+
+    if (restaurants == null) {
+      return new GetRestaurantsResponse(new ArrayList<>());
+    }
+
+    return new GetRestaurantsResponse(restaurants);
   }
 
 

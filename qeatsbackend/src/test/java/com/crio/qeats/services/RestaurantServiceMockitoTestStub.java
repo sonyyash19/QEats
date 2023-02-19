@@ -50,54 +50,49 @@ public class RestaurantServiceMockitoTestStub {
 
   @BeforeEach
   public void initializeRestaurantObjects() throws IOException {
-    String fixture =
-        FixtureHelpers.fixture(FIXTURES + "/mocking_list_of_restaurants.json");
+    String fixture = FixtureHelpers.fixture(FIXTURES + "/mocking_list_of_restaurants.json");
     Restaurant[] restaurants = objectMapper.readValue(fixture, Restaurant[].class);
     restaurant1 = restaurants[0];
     restaurant2 = restaurants[1];
     restaurant3 = restaurants[2];
     restaurant4 = restaurants[3];
     restaurant5 = restaurants[4];
-    
+
     // TODO CRIO_TASK_MODULE_MOCKITO
-    //  What to do with this Restaurant[] ? Looks unused?
-    //  Look for the "assert" statements in the tests
-    //  following and find out what to do with the array.
+    // What to do with this Restaurant[] ? Looks unused?
+    // Look for the "assert" statements in the tests
+    // following and find out what to do with the array.
   }
 
 
 
   @Test
-  public void  testFindNearbyWithin5km() throws IOException {
-    //TODO: CRIO_TASK_MODULE_MOCKITO
+  public void testFindNearbyWithin5km() throws IOException {
+    // TODO: CRIO_TASK_MODULE_MOCKITO
     // Following test case is failing, you have to
     // debug it, find out whats going wrong and fix it.
     // Notes - You can create additional mocks, setup the same and try out.
-      // restaurant1 = restaurants[]
+    // restaurant1 = restaurants[]
 
-     when(restaurantRepositoryServiceMock
-            .findAllRestaurantsCloseBy(any(Double.class), any(Double.class),
-                eq(LocalTime.of(3, 0)),
-                eq(5.0)))
+    when(restaurantRepositoryServiceMock.findAllRestaurantsCloseBy(any(Double.class),
+        any(Double.class), eq(LocalTime.of(3, 0)), eq(5.0)))
             .thenReturn(Arrays.asList(restaurant1, restaurant2));
     GetRestaurantsResponse allRestaurantsCloseBy = restaurantService
-        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0),
-            LocalTime.of(3, 0));
+        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.0), LocalTime.of(3, 0));
 
     assertEquals(2, allRestaurantsCloseBy.getRestaurants().size());
     assertEquals("11", allRestaurantsCloseBy.getRestaurants().get(0).getRestaurantId());
     assertEquals("12", allRestaurantsCloseBy.getRestaurants().get(1).getRestaurantId());
 
     ArgumentCaptor<Double> servingRadiusInKms = ArgumentCaptor.forClass(Double.class);
-    verify(restaurantRepositoryServiceMock, times(1))
-        .findAllRestaurantsCloseBy(any(Double.class), any(Double.class), any(LocalTime.class),
-            servingRadiusInKms.capture());
+    verify(restaurantRepositoryServiceMock, times(1)).findAllRestaurantsCloseBy(any(Double.class),
+        any(Double.class), any(LocalTime.class), servingRadiusInKms.capture());
 
   }
 
 
   @Test
-  public void  testFindNearbyWithin3km() throws IOException {
+  public void testFindNearbyWithin3km() throws IOException {
 
     List<Restaurant> restaurantList1 = new ArrayList<>();
     restaurantList1.add(restaurant1);
@@ -107,38 +102,31 @@ public class RestaurantServiceMockitoTestStub {
     restaurantList2.add(restaurant4);
 
     // TODO: CRIO_TASK_MODULE_MOCKITO
-    //  Initialize these two lists above such that I will match with the assert statements
-    //  defined below.
+    // Initialize these two lists above such that I will match with the assert statements
+    // defined below.
 
 
-    lenient().doReturn(restaurantList1)
-        .when(restaurantRepositoryServiceMock)
-        .findAllRestaurantsCloseBy(eq(20.0), eq(30.2), eq(LocalTime.of(11, 00)),
-            eq(5.0));
+    lenient().doReturn(restaurantList1).when(restaurantRepositoryServiceMock)
+        .findAllRestaurantsCloseBy(eq(20.0), eq(30.2), eq(LocalTime.of(11, 00)), eq(5.0));
 
-    lenient().doReturn(restaurantList2)
-        .when(restaurantRepositoryServiceMock)
-        .findAllRestaurantsCloseBy(eq(21.0), eq(31.1), eq(LocalTime.of(8, 00)),
-            eq(3.0));
-
-    GetRestaurantsResponse allRestaurantsCloseByOffPeakHours = restaurantService
-              .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.2), 
-                    LocalTime.of(11, 00));
-    GetRestaurantsResponse allRestaurantsCloseByPeakHours = restaurantService
-              .findAllRestaurantsCloseBy(new GetRestaurantsRequest(21.0, 31.1), 
-                    LocalTime.of(8, 00));
+    lenient().doReturn(restaurantList2).when(restaurantRepositoryServiceMock)
+        .findAllRestaurantsCloseBy(eq(21.0), eq(31.1), eq(LocalTime.of(8, 00)), eq(3.0));
 
     // TODO: CRIO_TASK_MODULE_MOCKITO
-    //  Call restaurantService.findAllRestaurantsCloseBy with appropriate parameters such that
-    //  Both of the mocks created above are called.
-    //  Our assessment will verify whether these mocks are called as per the definition.
-    //  Refer to the assertions below in order to understand the requirements better.
+    // Call restaurantService.findAllRestaurantsCloseBy with appropriate parameters such that
+    // Both of the mocks created above are called.
+    // Our assessment will verify whether these mocks are called as per the definition.
+    // Refer to the assertions below in order to understand the requirements better.
 
+    GetRestaurantsResponse allRestaurantsCloseByOffPeakHours = restaurantService
+        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(20.0, 30.2), LocalTime.of(11, 00));
 
     assertEquals(2, allRestaurantsCloseByOffPeakHours.getRestaurants().size());
     assertEquals("11", allRestaurantsCloseByOffPeakHours.getRestaurants().get(0).getRestaurantId());
     assertEquals("14", allRestaurantsCloseByOffPeakHours.getRestaurants().get(1).getRestaurantId());
 
+    GetRestaurantsResponse allRestaurantsCloseByPeakHours = restaurantService
+        .findAllRestaurantsCloseBy(new GetRestaurantsRequest(21.0, 31.1), LocalTime.of(8, 00));
 
     assertEquals(2, allRestaurantsCloseByPeakHours.getRestaurants().size());
     assertEquals("12", allRestaurantsCloseByPeakHours.getRestaurants().get(0).getRestaurantId());
