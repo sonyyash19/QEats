@@ -70,8 +70,9 @@ public class RestaurantController {
     // CHECKSTYLE:ON
 
     // if found the restaurants return the restaurants to the user
-    if (getRestaurantsResponse != null)
+    if (getRestaurantsResponse != null) {
       return ResponseEntity.ok().body(getRestaurantsResponse);
+    }
 
     // if some issue while de serializing it, it is a bad request
     return ResponseEntity.badRequest().body("Location is not correct.");

@@ -27,7 +27,6 @@ public class RestaurantRepositoryServiceDummyImpl implements RestaurantRepositor
     });
   }
 
-  // TODO: CRIO_TASK_MODULE_RESTAURANTSAPI - Use this dummy implementation.
   // This function returns a list of restaurants in any lat/long of your choice randomly.
   // It will load some dummy restaurants and change their latitude/longitude near
   // the lat/long you pass. In the next module, once you start using mongodb, you will not use
