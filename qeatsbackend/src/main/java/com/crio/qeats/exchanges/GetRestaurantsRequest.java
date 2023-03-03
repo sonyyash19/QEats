@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 public class GetRestaurantsRequest {
 
   @NotNull
-  private double latitude;
+  private Double latitude;
 
   @NotNull
-  private double longitude;
+  private Double longitude;
 
   private String searchFor;
 
