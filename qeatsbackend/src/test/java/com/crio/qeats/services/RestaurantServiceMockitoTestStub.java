@@ -68,7 +68,6 @@ public class RestaurantServiceMockitoTestStub {
 
   @Test
   public void testFindNearbyWithin5km() throws IOException {
-    // TODO: CRIO_TASK_MODULE_MOCKITO
     // Following test case is failing, you have to
     // debug it, find out whats going wrong and fix it.
     // Notes - You can create additional mocks, setup the same and try out.
