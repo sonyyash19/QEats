@@ -41,8 +41,8 @@ public class Restaurant {
   private String name;
   private String city;
   private String imageUrl;
-  private double latitude;
-  private double longitude;
+  private Double latitude;
+  private Double longitude;
   private String opensAt;
   private String closesAt;
   private List<String> attributes;
