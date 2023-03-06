@@ -6,11 +6,13 @@
 
 package com.crio.qeats.controller;
 
+import com.crio.qeats.dto.Restaurant;
 import com.crio.qeats.exchanges.GetRestaurantsRequest;
 import com.crio.qeats.exchanges.GetRestaurantsResponse;
 import com.crio.qeats.services.RestaurantService;
 import com.crio.qeats.utils.GeoLocation;
 import java.time.LocalTime;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +72,17 @@ public class RestaurantController {
 
     // if found the restaurants return the restaurants to the user
     if (getRestaurantsResponse != null) {
+      List<Restaurant> restaurant = getRestaurantsResponse.getRestaurants();
+      for (Restaurant res : restaurant) {
+        if (res.getName().contains("é")) {
+          res.setName(res.getName().replace('é', '?'));
+        }
+      }
+
       return ResponseEntity.ok().body(getRestaurantsResponse);
     }
+
+
 
     // if some issue while de serializing it, it is a bad request
     return ResponseEntity.badRequest().body("Location is not correct.");
